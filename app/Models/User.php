@@ -21,7 +21,20 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
+
+
+    const STATUS_ADMIN = 'admin';
+    const STATUS_EMPOYEE = 'employee';
+
+    public static function statuses(): array
+    {
+        return [
+            self::STATUS_ADMIN,
+            self::STATUS_EMPOYEE,
+        ];
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +54,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // A user can have many logs
+    public function invoiceLogs()
+    {
+        return $this->hasMany(InvoiceLog::class);
+    }
 }
