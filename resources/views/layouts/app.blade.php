@@ -12,6 +12,11 @@
         <div class="container-fluid">
         <!-- Application Name -->
         <a class="navbar-brand" href="{{ route('invoices.index') }}">Invoice Management</a>
+        @auth
+        @if(auth()->user()->role === 'admin')
+            <a class="nav-link" href="{{ route('invoice_logs.index') }}">Logs</a>
+        @endif
+        @endauth
         <div class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav mb-2 mb-lg-0">
             @auth
