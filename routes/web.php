@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\InvoiceLogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,4 +31,5 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resource('invoices', InvoiceController::class);
+    Route::resource('invoice_logs', InvoiceLogController::class);
 });
