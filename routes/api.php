@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\InvoiceController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+// public routes
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+
+    // Employees can only update invoices
+    Route::middleware('can:update,invoice')->group(function () {
+        Route::put('/invoices/{invoice}', [InvoiceController::class, 'update']);
+    });
+
+    // Admins can create and delete invoices
+    Route::middleware('can:manageInvoices')->group(function () {
+        Route::post('/invoices',[InvoiceController::class, 'store']);
+        Route::delete('/invoices/{invoice}', [InvoiceController::class, 'destroy']);
+    });
+
+    Route::get('/invoices', [InvoiceController::class, 'index']);
+    Route::get('invoices/{invoice}', [InvoiceController::class, 'show']);
 });

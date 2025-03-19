@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Invoice;
+use App\Policies\InvoicePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -14,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Invoice::class => InvoicePolicy::class,
     ];
 
     /**
@@ -25,6 +28,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('manageInvoices', function ($user) {
+            return $user->role === 'admin';
+        });
+
+        Gate::define('update', function ($user, $invoice) {
+            return in_array($user->role, ['admin', 'employee']);
+        });
     }
 }
