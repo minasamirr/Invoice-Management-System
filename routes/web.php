@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InvoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 // Protect routes with authentication middleware as needed
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
-        return view('welcome');
+        return redirect()->route('invoices.index');
     });
+
+    Route::resource('invoices', InvoiceController::class);
 });
