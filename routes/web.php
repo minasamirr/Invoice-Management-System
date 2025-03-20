@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
         return redirect()->route('invoices.index');
     });
 
+    Route::get('/invoices/search', [InvoiceController::class, 'search'])->name('invoices.search');
     Route::resource('invoices', InvoiceController::class);
     Route::resource('invoice_logs', InvoiceLogController::class);
 });
