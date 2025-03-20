@@ -14,9 +14,10 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $invoices = Invoice::all();
+        $perPage = $request->query('per_page', 10);
+        $invoices = Invoice::paginate($perPage);
         return view('invoices.index', compact('invoices'));
     }
 

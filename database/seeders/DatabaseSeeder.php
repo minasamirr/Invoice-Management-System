@@ -64,6 +64,136 @@ class DatabaseSeeder extends Seeder
             'description'    => 'Invoice for product delivery.',
         ]);
 
+        $invoice3 = Invoice::create([
+            'invoice_number' => 'INV-003',
+            'customer_id'    => $customer1->id,
+            'amount'         => 150.00,
+            'tax'            => 15.00,
+            'status'         => 'Pending',
+            'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'description'    => 'Invoice for consulting services.',
+        ]);
+
+        $invoice4 = Invoice::create([
+            'invoice_number' => 'INV-004',
+            'customer_id'    => $customer2->id,
+            'amount'         => 250.00,
+            'tax'            => 25.00,
+            'status'         => 'Paid',
+            'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'description'    => 'Invoice for product delivery.',
+        ]);
+
+        $invoice5 = Invoice::create([
+            'invoice_number' => 'INV-005',
+            'customer_id'    => $customer1->id,
+            'amount'         => 150.00,
+            'tax'            => 15.00,
+            'status'         => 'Pending',
+            'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'description'    => 'Invoice for consulting services.',
+        ]);
+
+        $invoice6 = Invoice::create([
+            'invoice_number' => 'INV-006',
+            'customer_id'    => $customer2->id,
+            'amount'         => 250.00,
+            'tax'            => 25.00,
+            'status'         => 'Paid',
+            'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'description'    => 'Invoice for product delivery.',
+        ]);
+
+        $invoice7 = Invoice::create([
+            'invoice_number' => 'INV-007',
+            'customer_id'    => $customer1->id,
+            'amount'         => 150.00,
+            'tax'            => 15.00,
+            'status'         => 'Pending',
+            'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'description'    => 'Invoice for consulting services.',
+        ]);
+
+        $invoice8 = Invoice::create([
+            'invoice_number' => 'INV-008',
+            'customer_id'    => $customer2->id,
+            'amount'         => 250.00,
+            'tax'            => 25.00,
+            'status'         => 'Paid',
+            'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'description'    => 'Invoice for product delivery.',
+        ]);
+
+        $invoice9 = Invoice::create([
+            'invoice_number' => 'INV-009',
+            'customer_id'    => $customer1->id,
+            'amount'         => 150.00,
+            'tax'            => 15.00,
+            'status'         => 'Pending',
+            'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'description'    => 'Invoice for consulting services.',
+        ]);
+
+        $invoice10 = Invoice::create([
+            'invoice_number' => 'INV-010',
+            'customer_id'    => $customer2->id,
+            'amount'         => 250.00,
+            'tax'            => 25.00,
+            'status'         => 'Paid',
+            'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'description'    => 'Invoice for product delivery.',
+        ]);
+
+        $invoice11 = Invoice::create([
+            'invoice_number' => 'INV-011',
+            'customer_id'    => $customer1->id,
+            'amount'         => 150.00,
+            'tax'            => 15.00,
+            'status'         => 'Pending',
+            'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'description'    => 'Invoice for consulting services.',
+        ]);
+
+        $invoice12 = Invoice::create([
+            'invoice_number' => 'INV-012',
+            'customer_id'    => $customer2->id,
+            'amount'         => 250.00,
+            'tax'            => 25.00,
+            'status'         => 'Paid',
+            'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'description'    => 'Invoice for product delivery.',
+        ]);
+
+        $invoice13 = Invoice::create([
+            'invoice_number' => 'INV-013',
+            'customer_id'    => $customer1->id,
+            'amount'         => 150.00,
+            'tax'            => 15.00,
+            'status'         => 'Pending',
+            'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'description'    => 'Invoice for consulting services.',
+        ]);
+
+        $invoice14 = Invoice::create([
+            'invoice_number' => 'INV-014',
+            'customer_id'    => $customer2->id,
+            'amount'         => 250.00,
+            'tax'            => 25.00,
+            'status'         => 'Paid',
+            'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'description'    => 'Invoice for product delivery.',
+        ]);
+
+        $invoice15 = Invoice::create([
+            'invoice_number' => 'INV-015',
+            'customer_id'    => $customer1->id,
+            'amount'         => 150.00,
+            'tax'            => 15.00,
+            'status'         => 'Pending',
+            'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'description'    => 'Invoice for consulting services.',
+        ]);
+
         // Create invoice logs for the invoices (as an audit trail)
         InvoiceLog::create([
             'invoice_id' => $invoice1->id,
@@ -75,6 +205,118 @@ class DatabaseSeeder extends Seeder
 
         InvoiceLog::create([
             'invoice_id' => $invoice2->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice3->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice4->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice5->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice6->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice7->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice8->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice9->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice10->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice11->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice12->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice13->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice13->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice14->id,
+            'user_id'    => $admin->id,
+            'action'     => 'create',
+            'role'       => 'admin',
+            'details'    => 'Invoice created via seeder.',
+        ]);
+
+        InvoiceLog::create([
+            'invoice_id' => $invoice15->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
             'role'       => 'admin',
