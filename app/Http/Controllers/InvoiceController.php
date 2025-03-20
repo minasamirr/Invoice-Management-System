@@ -192,4 +192,46 @@ class InvoiceController extends Controller
         return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully.');
     }
 
+    public function search(Request $request)
+    {
+        $query = Invoice::query();
+
+        if ($request->filled('invoice_number')) {
+            $query->where('invoice_number', 'LIKE', '%' . $request->invoice_number . '%');
+        }
+
+        if ($request->filled('customer_name')) {
+            $query->whereHas('customer', function ($q) use ($request) {
+                $q->where('name', 'LIKE', '%' . $request->customer_name . '%');
+            });
+        }
+
+        if ($request->filled('invoice_date_from')) {
+            $query->whereDate('due_date', '>=', $request->invoice_date_from);
+        }
+
+        if ($request->filled('invoice_date_to')) {
+            $query->whereDate('due_date', '<=', $request->invoice_date_to);
+        }
+
+        if ($request->filled('invoice_amount_from')) {
+            $query->where('amount', '>=', $request->invoice_amount_from);
+        }
+
+        if ($request->filled('invoice_amount_to')) {
+            $query->where('amount', '<=', $request->invoice_amount_to);
+        }
+
+        if ($request->filled('payment_status')) {
+            $query->where('status', $request->payment_status);
+        }
+
+        $query->orderBy('due_date', 'desc');
+        $perPage = $request->input('per_page', 10);
+        $invoices = $query->paginate($perPage);
+
+        $statuses = Invoice::statuses();
+
+        return view('invoices.search', compact('invoices', 'statuses'));
+    }
 }
