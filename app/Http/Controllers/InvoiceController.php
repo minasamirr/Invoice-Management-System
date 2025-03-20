@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\InvoiceUpdated;
 use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\InvoiceLog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceController extends Controller
 {
@@ -125,7 +128,23 @@ class InvoiceController extends Controller
             'status'      => 'required|in:' . implode(',', Invoice::statuses()),
         ]);
 
+        $oldValues = $invoice->getOriginal();
+
         $invoice->update($validated);
+
+        $newValues = $invoice->getChanges();
+
+        $changes = [];
+        foreach ($newValues as $field => $newVal) {
+            if ($field === 'updated_at') {
+                continue;
+            }
+            $oldVal = $oldValues[$field] ?? '';
+            $changes[$field] = [
+                'old' => $oldVal,
+                'new' => $newVal,
+            ];
+        }
 
         // Log the update action
         InvoiceLog::create([
@@ -135,6 +154,14 @@ class InvoiceController extends Controller
             'role'       => auth()->user()->role,
             'details'    => 'Invoice updated successfully.',
         ]);
+
+        if ($invoice->customer && $invoice->customer->email) {
+            try {
+                Mail::to($invoice->customer->email)->send(new InvoiceUpdated($invoice, $changes));
+            } catch (\Exception $e) {
+                Log::error("Fail to send the email for invoice #{$invoice->invoice_number}: ". $e->getMessage());
+            }
+        }
 
         return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
     }
