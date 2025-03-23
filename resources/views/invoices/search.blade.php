@@ -70,6 +70,7 @@
                     <th>Tax</th>
                     <th>Status</th>
                     <th>Due Date</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -81,6 +82,20 @@
                         <td>${{ number_format($invoice->tax, 2) }}</td>
                         <td>{{ $invoice->status }}</td>
                         <td>{{ $invoice->due_date }}</td>
+                        <td>
+                            <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-info btn-sm">View</a>
+                            <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                            @if(auth()->user()->role === 'admin')
+                            <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                        onclick="return confirm('Are you sure you want to delete this invoice?')">
+                                Delete
+                                </button>
+                            </form>
+                            @endif
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

@@ -27,7 +27,7 @@
         <div class="mb-3">
         <label for="status" class="form-label">Status</label>
         <select name="status" id="status" class="form-select" required>
-            @foreach(\App\Models\Invoice::statuses() as $status)
+            @foreach($statuses as $status)
             <option value="{{ $status }}" {{ $invoice->status === $status ? 'selected' : '' }}>
                 {{ $status }}
             </option>
@@ -43,6 +43,6 @@
         <textarea name="description" id="description" class="form-control">{{ $invoice->description }}</textarea>
         </div>
         <button type="submit" class="btn btn-success">Update Invoice</button>
-        <a href="{{ route('invoices.index') }}" class="btn btn-secondary">Cancel</a>
+        <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
     </form>
 @endsection

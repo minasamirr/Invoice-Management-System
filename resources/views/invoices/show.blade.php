@@ -23,7 +23,7 @@
         </div>
         <div class="card-footer">
         <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning btn-sm">Edit</a>
-        <a href="{{ route('invoices.index') }}" class="btn btn-secondary btn-sm">Back to Invoices</a>
+        <a href="{{ url()->previous() }}" class="btn btn-secondary btn-sm">Back to Invoices</a>
         </div>
     </div>
 @endsection
