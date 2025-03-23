@@ -3,31 +3,31 @@ Overview
 The Invoice Management System is a Laravel-based web application designed to manage invoices and customer data. The system supports full CRUD (Create, Read, Update, Delete) operations for invoices and customers. It features advanced search functionality, pagination, email notifications for invoice updates, and a RESTful API for invoice management with role-based permissions for Admins and Employees.
 Features
 
-    Invoice CRUD Operations:
-    Create, view, update, and delete invoices with a user-friendly interface.
-    Customer Management:
-    Manage customer information and associate each invoice with a specific customer.
-    Role-Based Permissions:
-        Admins: Have full control over invoices (create, update, delete).
-        Employees: Can only update existing invoices.
-    Invoice Logs:
-    Maintain an audit log for all actions performed on invoices (create, update, delete) including user details and timestamps.
-    Advanced Invoice Search:
-    Search invoices based on multiple criteria including:
-        Invoice number
-        Customer name
-        Invoice date range (from–to)
-        Invoice amount range (from–to)
-        Payment status
-        Currency
-    Pagination:
-    Display invoices with pagination (default 10 per page) and allow the user to select the number of items per page.
-    Email Notifications:
-    Automatically send an email notification to customers when an invoice is updated. The email details the changes made to the invoice.
-    RESTful API:
-    A separate API (secured via Laravel Sanctum) allows authenticated users to:
-        Employees: Update invoice data.
-        Admins: Create, update, and delete invoices.
+Invoice CRUD Operations:
+Create, view, update, and delete invoices with a user-friendly interface.
+Customer Management:
+Manage customer information and associate each invoice with a specific customer.
+Role-Based Permissions:
+    Admins: Have full control over invoices (create, update, delete).
+    Employees: Can only update existing invoices.
+Invoice Logs:
+Maintain an audit log for all actions performed on invoices (create, update, delete) including user details and timestamps.
+Advanced Invoice Search:
+Search invoices based on multiple criteria including:
+    Invoice number
+    Customer name
+    Invoice date range (from–to)
+    Invoice amount range (from–to)
+    Payment status
+    Currency
+Pagination:
+Display invoices with pagination (default 10 per page) and allow the user to select the number of items per page.
+Email Notifications:
+Automatically send an email notification to customers when an invoice is updated. The email details the changes made to the invoice.
+RESTful API:
+A separate API (secured via Laravel Sanctum) allows authenticated users to:
+    Employees: Update invoice data.
+    Admins: Create, update, and delete invoices.
 
 Technologies
     Backend Framework: Laravel 8/9/10 (depending on your version)
