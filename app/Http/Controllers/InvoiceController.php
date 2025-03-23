@@ -53,15 +53,7 @@ class InvoiceController extends Controller
             abort(403, 'Unauthorized.');
         }
 
-        $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'amount'      => 'required|numeric|min:0',
-            'tax'         => 'nullable|numeric|min:0',
-            'due_date'    => 'required|date',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:' . implode(',', Invoice::statuses()),
-            'currency'    => 'required|string|size:3',
-        ]);
+        $validated = $request->validate(Invoice::rules());
 
         $invoice = Invoice::create($validated);
 
@@ -122,15 +114,7 @@ class InvoiceController extends Controller
             abort(404);
         }
 
-        $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'amount'      => 'required|numeric|min:0',
-            'tax'         => 'nullable|numeric|min:0',
-            'due_date'    => 'required|date',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:' . implode(',', Invoice::statuses()),
-            'currency'    => 'required|string|size:3',
-        ]);
+        $validated = $request->validate(Invoice::rules());
 
         $oldValues = $invoice->getOriginal();
 
@@ -228,10 +212,6 @@ class InvoiceController extends Controller
 
         if ($request->filled('payment_status')) {
             $query->where('status', $request->payment_status);
-        }
-
-        if ($request->filled('currency')) {
-            $query->where('currency', $request->currency);
         }
 
         $query->orderBy('due_date', 'desc');

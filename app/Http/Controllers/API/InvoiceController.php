@@ -26,14 +26,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('manageInvoices');
 
-        $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'amount'      => 'required|numeric|min:0',
-            'tax'         => 'required|numeric|min:0',
-            'due_date'    => 'required|date',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:Pending,Paid,Overdue',
-        ]);
+        $validated = $request->validate(Invoice::rules());
 
         $invoice = Invoice::create($validated);
 
@@ -52,14 +45,7 @@ class InvoiceController extends Controller
     {
         $this->authorize('update', $invoice);
 
-        $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'amount'      => 'required|numeric|min:0',
-            'tax'         => 'nullable|numeric|min:0',
-            'due_date'    => 'required|date',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:' . implode(',', Invoice::statuses()),
-        ]);
+        $validated = $request->validate(Invoice::rules());
 
         $oldValues = $invoice->getOriginal();
 

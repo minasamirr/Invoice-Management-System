@@ -34,6 +34,19 @@ class Invoice extends Model
         ];
     }
 
+    public static function rules(): array
+    {
+        return [
+            'customer_id' => 'required|exists:customers,id',
+            'amount'      => 'required|numeric|min:0',
+            'tax'         => 'nullable|numeric|min:0',
+            'due_date'    => 'required|date',
+            'description' => 'nullable|string',
+            'status'      => 'required|in:' . implode(',', self::statuses()),
+            'currency'    => 'required|string|size:3',
+        ];
+    }
+
     // Auto-generate a unique invoice number when creating an invoice
     protected static function boot()
     {
