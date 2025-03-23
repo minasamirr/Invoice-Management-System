@@ -37,7 +37,8 @@ class InvoiceController extends Controller
 
         // Assuming you have customers to select from in the create form.
         $customers = Customer::all();
-        return view('invoices.create', compact('customers'));
+        $statuses = Invoice::statuses();
+        return view('invoices.create', compact('customers', 'statuses'));
     }
 
     /**
@@ -103,7 +104,8 @@ class InvoiceController extends Controller
         }
         // You may want to pass customers list if changing the customer is allowed.
         $customers = Customer::all();
-        return view('invoices.edit', compact('invoice', 'customers'));
+        $statuses = Invoice::statuses();
+        return view('invoices.edit', compact('invoice', 'customers', 'statuses'));
     }
 
     /**

@@ -24,7 +24,7 @@
         <div class="mb-3">
         <label for="status" class="form-label">Status</label>
         <select name="status" id="status" class="form-select" required>
-            @foreach(\App\Models\Invoice::statuses() as $status)
+            @foreach($statuses as $status)
             <option value="{{ $status }}">{{ $status }}</option>
             @endforeach
         </select>

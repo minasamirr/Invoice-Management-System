@@ -12,8 +12,8 @@
         <div class="container-fluid">
         <!-- Application Name -->
         <a class="navbar-brand" href="{{ route('invoices.index') }}">Invoice Management</a>
-        <a class="nav-link me-3" href="{{ route('invoices.search') }}">Search</a>
         @auth
+        <a class="nav-link me-3" href="{{ route('invoices.search') }}">Search</a>
         @if(auth()->user()->role === 'admin')
             <a class="nav-link" href="{{ route('invoice_logs.index') }}">Logs</a>
         @endif
