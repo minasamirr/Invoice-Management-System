@@ -42,7 +42,14 @@
             </div>
             <div class="col-md-3 mt-3">
                 <label for="currency" class="form-label">Currency</label>
-                <input type="text" name="currency" id="currency" class="form-control" value="{{ request('currency') }}" placeholder="e.g. EGP, USD">
+                <select name="currency" id="currency" class="form-select">
+                    <option value="">--Select Currency--</option>
+                    @foreach($currencies as $currency)
+                        <option value="{{ $currency }}" {{ request('currency') == $currency ? 'selected' : '' }}>
+                            {{ $currency }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
         <div class="mt-3">

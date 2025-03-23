@@ -16,14 +16,13 @@ class AuthController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
-            'role'     => 'required|in:admin,employee',
         ]);
 
         $user = User::create([
             'name'     => $validated['name'],
             'email'    => $validated['email'],
             'password' => Hash::make($validated['password']),
-            'role'     => $validated['role'],
+            'role'     => 'employee',
         ]);
 
         return response()->json(['message' => 'User created successfully.', 'user' => $user], 201);

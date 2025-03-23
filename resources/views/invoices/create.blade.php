@@ -30,9 +30,15 @@
             </select>
         </div>
         <div class="mb-3">
-            <label for="currency" class="form-label">Currency</label>
-            <input type="text" name="currency" id="currency" class="form-control" maxlength="3" value="{{ old('currency', 'USD') }}" required>
-            <small class="form-text text-muted">Enter 3-letter ISO currency code (e.g. EGP, USD, EUR)</small>
+        <label for="currency" class="form-label">Currency</label>
+            <select name="currency" id="currency" class="form-select" required>
+                <option value="">Select Currency</option>
+                @foreach(\App\Models\Invoice::currencies() as $currency)
+                    <option value="{{ $currency }}" {{ old('currency', 'USD') == $currency ? 'selected' : '' }}>
+                        {{ $currency }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="mb-3">
             <label for="due_date" class="form-label">Due Date</label>
@@ -45,4 +51,5 @@
         <button type="submit" class="btn btn-success">Create Invoice</button>
         <a href="{{ route('invoices.index') }}" class="btn btn-secondary">Cancel</a>
     </form>
+    <br>
 @endsection

@@ -38,7 +38,8 @@ class InvoiceController extends Controller
         // Assuming you have customers to select from in the create form.
         $customers = Customer::all();
         $statuses = Invoice::statuses();
-        return view('invoices.create', compact('customers', 'statuses'));
+        $currencies = Invoice::currencies();
+        return view('invoices.create', compact('customers', 'statuses', 'currencies'));
     }
 
     /**
@@ -53,15 +54,7 @@ class InvoiceController extends Controller
             abort(403, 'Unauthorized.');
         }
 
-        $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'amount'      => 'required|numeric|min:0',
-            'tax'         => 'nullable|numeric|min:0',
-            'due_date'    => 'required|date',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:' . implode(',', Invoice::statuses()),
-            'currency'    => 'required|string|size:3',
-        ]);
+        $validated = $request->validate(Invoice::rules());
 
         $invoice = Invoice::create($validated);
 
@@ -106,7 +99,8 @@ class InvoiceController extends Controller
         // You may want to pass customers list if changing the customer is allowed.
         $customers = Customer::all();
         $statuses = Invoice::statuses();
-        return view('invoices.edit', compact('invoice', 'customers', 'statuses'));
+        $currencies = Invoice::currencies();
+        return view('invoices.edit', compact('invoice', 'customers', 'statuses', 'currencies'));
     }
 
     /**
@@ -122,15 +116,7 @@ class InvoiceController extends Controller
             abort(404);
         }
 
-        $validated = $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'amount'      => 'required|numeric|min:0',
-            'tax'         => 'nullable|numeric|min:0',
-            'due_date'    => 'required|date',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:' . implode(',', Invoice::statuses()),
-            'currency'    => 'required|string|size:3',
-        ]);
+        $validated = $request->validate(Invoice::rules());
 
         $oldValues = $invoice->getOriginal();
 
@@ -239,7 +225,8 @@ class InvoiceController extends Controller
         $invoices = $query->paginate($perPage);
 
         $statuses = Invoice::statuses();
+        $currencies = Invoice::currencies();
 
-        return view('invoices.search', compact('invoices', 'statuses'));
+        return view('invoices.search', compact('invoices', 'statuses', 'currencies'));
     }
 }
