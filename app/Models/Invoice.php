@@ -18,6 +18,7 @@ class Invoice extends Model
         'status',
         'due_date',
         'description',
+        'currency',
     ];
 
     const STATUS_PENDING = 'Pending';

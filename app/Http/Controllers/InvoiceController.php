@@ -60,6 +60,7 @@ class InvoiceController extends Controller
             'due_date'    => 'required|date',
             'description' => 'nullable|string',
             'status'      => 'required|in:' . implode(',', Invoice::statuses()),
+            'currency'    => 'required|string|size:3',
         ]);
 
         $invoice = Invoice::create($validated);
@@ -128,6 +129,7 @@ class InvoiceController extends Controller
             'due_date'    => 'required|date',
             'description' => 'nullable|string',
             'status'      => 'required|in:' . implode(',', Invoice::statuses()),
+            'currency'    => 'required|string|size:3',
         ]);
 
         $oldValues = $invoice->getOriginal();
@@ -226,6 +228,10 @@ class InvoiceController extends Controller
 
         if ($request->filled('payment_status')) {
             $query->where('status', $request->payment_status);
+        }
+
+        if ($request->filled('currency')) {
+            $query->where('currency', $request->currency);
         }
 
         $query->orderBy('due_date', 'desc');

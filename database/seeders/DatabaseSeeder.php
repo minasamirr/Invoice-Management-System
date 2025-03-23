@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 15.00,
             'status'         => 'Pending',
             'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for consulting services.',
         ]);
 
@@ -61,6 +62,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 25.00,
             'status'         => 'Paid',
             'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for product delivery.',
         ]);
 
@@ -71,6 +73,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 15.00,
             'status'         => 'Pending',
             'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for consulting services.',
         ]);
 
@@ -81,6 +84,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 25.00,
             'status'         => 'Paid',
             'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for product delivery.',
         ]);
 
@@ -91,6 +95,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 15.00,
             'status'         => 'Pending',
             'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for consulting services.',
         ]);
 
@@ -101,6 +106,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 25.00,
             'status'         => 'Paid',
             'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for product delivery.',
         ]);
 
@@ -111,6 +117,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 15.00,
             'status'         => 'Pending',
             'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for consulting services.',
         ]);
 
@@ -121,6 +128,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 25.00,
             'status'         => 'Paid',
             'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for product delivery.',
         ]);
 
@@ -131,6 +139,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 15.00,
             'status'         => 'Pending',
             'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for consulting services.',
         ]);
 
@@ -141,6 +150,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 25.00,
             'status'         => 'Paid',
             'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for product delivery.',
         ]);
 
@@ -151,6 +161,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 15.00,
             'status'         => 'Pending',
             'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for consulting services.',
         ]);
 
@@ -161,6 +172,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 25.00,
             'status'         => 'Paid',
             'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for product delivery.',
         ]);
 
@@ -171,6 +183,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 15.00,
             'status'         => 'Pending',
             'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for consulting services.',
         ]);
 
@@ -181,6 +194,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 25.00,
             'status'         => 'Paid',
             'due_date'       => Carbon::now()->addDays(15)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for product delivery.',
         ]);
 
@@ -191,6 +205,7 @@ class DatabaseSeeder extends Seeder
             'tax'            => 15.00,
             'status'         => 'Pending',
             'due_date'       => Carbon::now()->addDays(30)->toDateString(),
+            'currency'       => 'USD',
             'description'    => 'Invoice for consulting services.',
         ]);
 
