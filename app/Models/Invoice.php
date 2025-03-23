@@ -34,6 +34,11 @@ class Invoice extends Model
         ];
     }
 
+    public static function currencies(): array
+    {
+        return ['EGP', 'USD', 'EUR', 'GBP', 'JPY', 'CNY', 'INR', 'RUB', 'AUD', 'CAD'];
+    }
+
     public static function rules(): array
     {
         return [

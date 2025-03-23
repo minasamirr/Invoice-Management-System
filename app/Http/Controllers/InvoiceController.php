@@ -38,7 +38,8 @@ class InvoiceController extends Controller
         // Assuming you have customers to select from in the create form.
         $customers = Customer::all();
         $statuses = Invoice::statuses();
-        return view('invoices.create', compact('customers', 'statuses'));
+        $currencies = Invoice::currencies();
+        return view('invoices.create', compact('customers', 'statuses', 'currencies'));
     }
 
     /**
@@ -98,7 +99,8 @@ class InvoiceController extends Controller
         // You may want to pass customers list if changing the customer is allowed.
         $customers = Customer::all();
         $statuses = Invoice::statuses();
-        return view('invoices.edit', compact('invoice', 'customers', 'statuses'));
+        $currencies = Invoice::currencies();
+        return view('invoices.edit', compact('invoice', 'customers', 'statuses', 'currencies'));
     }
 
     /**
@@ -214,12 +216,17 @@ class InvoiceController extends Controller
             $query->where('status', $request->payment_status);
         }
 
+        if ($request->filled('currency')) {
+            $query->where('currency', $request->currency);
+        }
+
         $query->orderBy('due_date', 'desc');
         $perPage = $request->input('per_page', 10);
         $invoices = $query->paginate($perPage);
 
         $statuses = Invoice::statuses();
+        $currencies = Invoice::currencies();
 
-        return view('invoices.search', compact('invoices', 'statuses'));
+        return view('invoices.search', compact('invoices', 'statuses', 'currencies'));
     }
 }

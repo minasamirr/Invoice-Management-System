@@ -25,9 +25,15 @@
             <input type="number" name="tax" id="tax" step="0.01" class="form-control" value="{{ $invoice->tax }}">
         </div>
         <div class="mb-3">
-            <label for="currency" class="form-label">Currency</label>
-            <input type="text" name="currency" id="currency" class="form-control" maxlength="3" value="{{ old('currency', $invoice->currency ?? 'USD') }}" required>
-            <small class="form-text text-muted">Enter 3-letter ISO currency code (e.g. EGP, USD, EUR)</small>
+        <label for="currency" class="form-label">Currency</label>
+            <select name="currency" id="currency" class="form-select" required>
+                <option value="">Select Currency</option>
+                @foreach(\App\Models\Invoice::currencies() as $currency)
+                    <option value="{{ $currency }}" {{ old('currency', 'USD') == $currency ? 'selected' : '' }}>
+                        {{ $currency }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div class="mb-3">
             <label for="status" class="form-label">Status</label>
@@ -50,4 +56,5 @@
         <button type="submit" class="btn btn-success">Update Invoice</button>
         <a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
     </form>
+    <br>
 @endsection
