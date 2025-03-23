@@ -1,64 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+Invoice Management System
+Overview
+The Invoice Management System is a Laravel-based web application designed to manage invoices and customer data. The system supports full CRUD (Create, Read, Update, Delete) operations for invoices and customers. It features advanced search functionality, pagination, email notifications for invoice updates, and a RESTful API for invoice management with role-based permissions for Admins and Employees.
+Features
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+    Invoice CRUD Operations:
+    Create, view, update, and delete invoices with a user-friendly interface.
+    Customer Management:
+    Manage customer information and associate each invoice with a specific customer.
+    Role-Based Permissions:
+        Admins: Have full control over invoices (create, update, delete).
+        Employees: Can only update existing invoices.
+    Invoice Logs:
+    Maintain an audit log for all actions performed on invoices (create, update, delete) including user details and timestamps.
+    Advanced Invoice Search:
+    Search invoices based on multiple criteria including:
+        Invoice number
+        Customer name
+        Invoice date range (from–to)
+        Invoice amount range (from–to)
+        Payment status
+        Currency
+    Pagination:
+    Display invoices with pagination (default 10 per page) and allow the user to select the number of items per page.
+    Email Notifications:
+    Automatically send an email notification to customers when an invoice is updated. The email details the changes made to the invoice.
+    RESTful API:
+    A separate API (secured via Laravel Sanctum) allows authenticated users to:
+        Employees: Update invoice data.
+        Admins: Create, update, and delete invoices.
 
-## About Laravel
+Technologies
+    Backend Framework: Laravel 8/9/10 (depending on your version)
+    Frontend: Blade Templating Engine, Bootstrap 5
+    Database: MySQL (or your preferred RDBMS supported by Laravel)
+    API Authentication: Laravel Sanctum
+    Email: Laravel Mail (using Mailtrap/Mailgun, etc., configurable via .env)
+    Additional: Eloquent ORM, Form Request Validation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Setup Instructions
+    Clone the Repository:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    git clone https://github.com/your-username/invoice-management-system.git
+    cd invoice-management-system
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Install Dependencies:
+    Make sure you have Composer installed, then run:
 
-## Learning Laravel
+    composer install
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Environment Setup:
+    Copy the example environment file and update the settings:
+    
+    cp .env.example .env
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Generate an application key:
 
-## Laravel Sponsors
+    php artisan key:generate
+    Edit the .env file to set your database configuration, mail settings, and any other necessary environment variables.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Run Migrations:
 
-### Premium Partners
+    Migrate your database to create the necessary tables:
+    php artisan migrate
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Optionally, seed the database if you have seeders set up:
 
-## Contributing
+    php artisan db:seed
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Serve the Application:
+    Start the local development server:
 
-## Code of Conduct
+    php artisan serve
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    Your application will typically be available at http://127.0.0.1:8000.
 
-## Security Vulnerabilities
+Postman Collection
+A Postman collection is provided with the project, demonstrating how to use the API endpoints:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    Authentication Endpoints:
 
-## License
+        POST /api/register
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+        POST /api/login
+
+        POST /api/logout
+
+    Invoice Endpoints:
+
+        GET /api/invoices
+
+        GET /api/invoices/{invoice}
+
+        POST /api/invoices (Admin only)
+
+        PUT /api/invoices/{invoice} (Admin & Employee)
+
+        DELETE /api/invoices/{invoice} (Admin only)
+
+    Search Functionality:
+
+        GET /invoices/search for advanced invoice filtering
+
+To use the collection:
+    Open Postman and import the JSON collection file provided in the repository.
+    Configure your environment variables (API base URL, tokens, etc.).
+    Follow the documentation within the collection for request parameters and examples.
