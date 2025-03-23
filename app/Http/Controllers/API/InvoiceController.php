@@ -33,6 +33,7 @@ class InvoiceController extends Controller
             'due_date'    => 'required|date',
             'description' => 'nullable|string',
             'status'      => 'required|in:Pending,Paid,Overdue',
+            'currency'    => 'required|string|size:3',
         ]);
 
         $invoice = Invoice::create($validated);
@@ -59,6 +60,7 @@ class InvoiceController extends Controller
             'due_date'    => 'required|date',
             'description' => 'nullable|string',
             'status'      => 'required|in:' . implode(',', Invoice::statuses()),
+            'currency'    => 'required|string|size:3',
         ]);
 
         $oldValues = $invoice->getOriginal();
