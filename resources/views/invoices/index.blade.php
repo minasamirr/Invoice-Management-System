@@ -33,9 +33,9 @@
                         N/A
                         @endif
                     </td>
-                    <td>${{ number_format($invoice->amount, 2) }}</td>
-                    <td>${{ number_format($invoice->tax, 2) }}</td>
-                    <td>${{ number_format($invoice->total_amount, 2) }}</td>
+                    <td>{{ number_format($invoice->amount, 2) }} {{ $invoice->currency }}</td>
+                    <td>{{ number_format($invoice->tax, 2) }} {{ $invoice->currency }}</td>
+                    <td>{{ number_format($invoice->total_amount, 2) }} {{ $invoice->currency }}</td>
                     <td>{{ $invoice->status }}</td>
                     <td>{{ $invoice->due_date }}</td>
                     <td>
