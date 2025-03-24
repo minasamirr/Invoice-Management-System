@@ -2,10 +2,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Invoice Updated</title>
+    <title>{{ $title }}</title>
 </head>
 <body>
-    <h1>Invoice Updated</h1>
+    <h1>{{ $title }}</h1>
     <p>Dear Customer,</p>
     <p>Your invoice (Invoice Number: {{ $invoice->invoice_number }}) has been updated.</p>
 
