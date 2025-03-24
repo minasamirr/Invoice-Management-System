@@ -120,6 +120,7 @@ A Postman collection is provided with the project, demonstrating how to use the 
         GET /invoices/search for advanced invoice filtering
 
 To use the collection:
-    Open Postman and import the JSON collection file provided in the repository.
-    Configure your environment variables (API base URL, tokens, etc.).
-    Follow the documentation within the collection for request parameters and examples.
+
+Open Postman and import the JSON collection file provided in the repository.
+Configure your environment variables (API base URL, tokens, etc.).
+Follow the documentation within the collection for request parameters and examples.
