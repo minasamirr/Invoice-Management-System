@@ -31,22 +31,29 @@ Search invoices based on multiple criteria including:
     Invoice amount range (from–to)
     Payment status
     Currency
+
 Pagination:
+
 Display invoices with pagination (default 10 per page) and allow the user to select the number of items per page.
+
 Email Notifications:
+
 Automatically send an email notification to customers when an invoice is updated. The email details the changes made to the invoice.
+
 RESTful API:
+
 A separate API (secured via Laravel Sanctum) allows authenticated users to:
     Employees: Update invoice data.
     Admins: Create, update, and delete invoices.
 
 Technologies
-    Backend Framework: Laravel 8/9/10 (depending on your version)
-    Frontend: Blade Templating Engine, Bootstrap 5
-    Database: MySQL (or your preferred RDBMS supported by Laravel)
-    API Authentication: Laravel Sanctum
-    Email: Laravel Mail (using Mailtrap/Mailgun, etc., configurable via .env)
-    Additional: Eloquent ORM, Form Request Validation
+
+Backend Framework: Laravel 8
+Frontend: Blade Templating Engine, Bootstrap 5
+Database: MySQL
+API Authentication: Laravel Sanctum
+Email: Laravel Mail (not completed)
+Additional: Eloquent ORM, Form Request Validation
 
 Setup Instructions
     Clone the Repository:
