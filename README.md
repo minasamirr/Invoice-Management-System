@@ -1,22 +1,27 @@
 Invoice Management System
 
-Overview
+Overview:
+
 The Invoice Management System is a Laravel-based web application designed to manage invoices and customer data. The system supports full CRUD (Create, Read, Update, Delete) operations for invoices and customers. It features advanced search functionality, pagination, email notifications for invoice updates, and a RESTful API for invoice management with role-based permissions for Admins and Employees.
 Features
 
 Invoice CRUD Operations:
 
 Create, view, update, and delete invoices with a user-friendly interface.
+
 Customer Management:
 
 Manage customer information and associate each invoice with a specific customer.
+
 Role-Based Permissions:
 
 Admins: Have full control over invoices (create, update, delete).
 Employees: Can only update existing invoices.
+
 Invoice Logs:
 
 Maintain an audit log for all actions performed on invoices (create, update, delete) including user details and timestamps.
+
 Advanced Invoice Search:
 
 Search invoices based on multiple criteria including:
