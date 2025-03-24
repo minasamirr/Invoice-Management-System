@@ -146,7 +146,8 @@ class InvoiceController extends Controller
 
             if ($invoice->customer && $invoice->customer->email) {
                 try {
-                    Mail::to($invoice->customer->email)->send(new InvoiceUpdated($invoice, $changes));
+                    $subject = 'Invoice #' . $invoice->invoice_number . ' Updated';
+                    Mail::to($invoice->customer->email)->send(new InvoiceUpdated($invoice, $changes, $subject));
                 } catch (\Exception $e) {
                     Log::error("Fail to send the email for invoice #{$invoice->invoice_number}: ". $e->getMessage());
                 }

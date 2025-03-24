@@ -19,10 +19,11 @@ class InvoiceUpdated extends Mailable
      *
      * @return void
      */
-    public function __construct(Invoice $invoice, array $changes)
+    public function __construct(Invoice $invoice, array $changes, string $subject)
     {
         $this->invoice = $invoice;
         $this->changes = $changes;
+        $this->subject($subject);
     }
 
     /**
@@ -32,7 +33,6 @@ class InvoiceUpdated extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.invoice_updated')
-                    ->subject('Invoice #' . $this->invoice->invoice_number . ' Updated');
+        return $this->view('emails.invoice_updated');
     }
 }
