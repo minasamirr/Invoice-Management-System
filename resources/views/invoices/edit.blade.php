@@ -29,7 +29,7 @@
             <select name="currency" id="currency" class="form-select" required>
                 <option value="">Select Currency</option>
                 @foreach(\App\Models\Invoice::currencies() as $currency)
-                    <option value="{{ $currency }}" {{ old('currency', 'USD') == $currency ? 'selected' : '' }}>
+                    <option value="{{ $currency }}" {{ $invoice->currency == $currency ? 'selected' : '' }}>
                         {{ $currency }}
                     </option>
                 @endforeach

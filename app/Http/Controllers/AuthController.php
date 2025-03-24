@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -20,19 +21,25 @@ class AuthController extends Controller
     // Process the login form submission
     public function login(Request $request)
     {
-        $credentials = $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ]);
+        try {
 
-        if (Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->route('invoices.index')->with('success', 'Logged in successfully.');
+            $credentials = $request->validate([
+                'email'    => 'required|email',
+                'password' => 'required',
+            ]);
+
+            if (Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->route('invoices.index')->with('success', 'Logged in successfully.');
+            }
+
+            return back()->withErrors([
+                'email' => 'Wrong email or password.',
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Login error: ' . $e->getMessage());
+            return back()->withErrors(['email' => 'An error occurred. Please try again later.']);
         }
-
-        return back()->withErrors([
-            'email' => 'Wrong email or password.',
-        ]);
     }
 
     // Show the registration form
@@ -44,32 +51,42 @@ class AuthController extends Controller
     // Process the registration form submission
     public function register(Request $request)
     {
-        $validated = $request->validate([
-            'name'      => 'required|string|max:255',
-            'email'     => 'required|email|unique:users,email',
-            'password'  => 'required|string|min:8|confirmed',
-        ]);
+        try {
+            $validated = $request->validate([
+                'name'      => 'required|string|max:255',
+                'email'     => 'required|email|unique:users,email',
+                'password'  => 'required|string|min:8|confirmed',
+            ]);
 
-        $user = User::create([
-            'name'     => $validated['name'],
-            'email'    => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role'     => 'employee',
-        ]);
+            $user = User::create([
+                'name'     => $validated['name'],
+                'email'    => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role'     => 'employee',
+            ]);
 
-        Auth::login($user);
+            Auth::login($user);
 
-        return redirect()->route('invoices.index')->with('success', 'Registration successful, and you are logged in.');
+            return redirect()->route('invoices.index')->with('success', 'Registration successful, and you are logged in.');
+        } catch (\Exception $e) {
+            Log::error('Registration error: ' . $e->getMessage());
+            return back()->withErrors(['email' => 'An error occurred. Please try again later.']);
+        }
     }
 
     // Logout the user
     public function logout(Request $request)
     {
-        Auth::logout();
+        try {
+            Auth::logout();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-        return redirect()->route('auth.login')->with('success', 'Logged out successfully.');
+            return redirect()->route('auth.login')->with('success', 'Logged out successfully.');
+        } catch (\Exception $e) {
+            Log::error('Logout error: ' . $e->getMessage());
+            return redirect()->route('auth.login')->withErrors(['error' => 'Logout failed. Please try again.']);
+        }
     }
 }

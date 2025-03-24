@@ -31,11 +31,8 @@ class InvoiceController extends Controller
      */
     public function create()
     {
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized.');
-        }
+        $this->authorize(('manageInvoices'));
 
-        // Assuming you have customers to select from in the create form.
         $customers = Customer::all();
         $statuses = Invoice::statuses();
         $currencies = Invoice::currencies();
@@ -50,24 +47,25 @@ class InvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized.');
+        $this->authorize('manageInvoices');
+        try {
+            $validated = $request->validate(Invoice::rules());
+
+            $invoice = Invoice::create($validated);
+
+            InvoiceLog::create([
+                'invoice_id' => $invoice->id,
+                'user_id'    => auth()->id(),
+                'action'     => 'create',
+                'role'       => auth()->user()->role,
+                'details'    => 'Invoice created successfully.',
+            ]);
+
+            return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
+        } catch (\Exception $e) {
+            Log::error('Invoice store error: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Failed to create invoice. Please try again later.']);
         }
-
-        $validated = $request->validate(Invoice::rules());
-
-        $invoice = Invoice::create($validated);
-
-        // Log the creation action
-        InvoiceLog::create([
-            'invoice_id' => $invoice->id,
-            'user_id'    => auth()->id(),
-            'action'     => 'create',
-            'role'       => auth()->user()->role,
-            'details'    => 'Invoice created successfully.',
-        ]);
-
-        return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
     }
 
     /**
@@ -96,7 +94,7 @@ class InvoiceController extends Controller
         if ($invoice->trashed()) {
             abort(404);
         }
-        // You may want to pass customers list if changing the customer is allowed.
+
         $customers = Customer::all();
         $statuses = Invoice::statuses();
         $currencies = Invoice::currencies();
@@ -116,44 +114,49 @@ class InvoiceController extends Controller
             abort(404);
         }
 
-        $validated = $request->validate(Invoice::rules());
+        $this->authorize('update', $invoice);
+        try {
+            $validated = $request->validate(Invoice::rules());
 
-        $oldValues = $invoice->getOriginal();
+            $oldValues = $invoice->getOriginal();
 
-        $invoice->update($validated);
+            $invoice->update($validated);
 
-        $newValues = $invoice->getChanges();
+            $newValues = $invoice->getChanges();
 
-        $changes = [];
-        foreach ($newValues as $field => $newVal) {
-            if ($field === 'updated_at') {
-                continue;
+            $changes = [];
+            foreach ($newValues as $field => $newVal) {
+                if ($field === 'updated_at') {
+                    continue;
+                }
+                $oldVal = $oldValues[$field] ?? '';
+                $changes[$field] = [
+                    'old' => $oldVal,
+                    'new' => $newVal,
+                ];
             }
-            $oldVal = $oldValues[$field] ?? '';
-            $changes[$field] = [
-                'old' => $oldVal,
-                'new' => $newVal,
-            ];
-        }
 
-        // Log the update action
-        InvoiceLog::create([
-            'invoice_id' => $invoice->id,
-            'user_id'    => auth()->id(),
-            'action'     => 'update',
-            'role'       => auth()->user()->role,
-            'details'    => 'Invoice updated successfully.',
-        ]);
+            InvoiceLog::create([
+                'invoice_id' => $invoice->id,
+                'user_id'    => auth()->id(),
+                'action'     => 'update',
+                'role'       => auth()->user()->role,
+                'details'    => 'Invoice updated successfully.',
+            ]);
 
-        if ($invoice->customer && $invoice->customer->email) {
-            try {
-                Mail::to($invoice->customer->email)->send(new InvoiceUpdated($invoice, $changes));
-            } catch (\Exception $e) {
-                Log::error("Fail to send the email for invoice #{$invoice->invoice_number}: ". $e->getMessage());
+            if ($invoice->customer && $invoice->customer->email) {
+                try {
+                    Mail::to($invoice->customer->email)->send(new InvoiceUpdated($invoice, $changes));
+                } catch (\Exception $e) {
+                    Log::error("Fail to send the email for invoice #{$invoice->invoice_number}: ". $e->getMessage());
+                }
             }
-        }
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
+            return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
+        } catch (\Exception $e) {
+            Log::error('Invoice update error: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Failed to update invoice. Please try again later.'])->withInput();
+        }
     }
 
     /**
@@ -164,22 +167,23 @@ class InvoiceController extends Controller
      */
     public function destroy(Invoice $invoice)
     {
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized.');
+        $this->authorize('manageInvoices');
+        try {
+            $invoice->delete();
+
+            InvoiceLog::create([
+                'invoice_id' => $invoice->id,
+                'user_id'    => auth()->id(),
+                'action'     => 'delete',
+                'role'       => auth()->user()->role,
+                'details'    => 'Invoice soft deleted successfully.',
+            ]);
+
+            return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully.');
+        } catch (\Exception $e) {
+            Log::error('Invoice deletion error: ' . $e->getMessage());
+            return back()->withErrors(['error' => 'Failed to delete invoice. Please try again later.']);
         }
-
-        $invoice->delete();
-
-        // Log the delete action
-        InvoiceLog::create([
-            'invoice_id' => $invoice->id,
-            'user_id'    => auth()->id(),
-            'action'     => 'delete',
-            'role'       => auth()->user()->role,
-            'details'    => 'Invoice soft deleted successfully.',
-        ]);
-
-        return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully.');
     }
 
     public function search(Request $request)
