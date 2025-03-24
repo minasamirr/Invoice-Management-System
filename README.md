@@ -25,12 +25,12 @@ Maintain an audit log for all actions performed on invoices (create, update, del
 Advanced Invoice Search:
 
 Search invoices based on multiple criteria including:
-    Invoice number
-    Customer name
-    Invoice date range (from–to)
-    Invoice amount range (from–to)
-    Payment status
-    Currency
+    Invoice number,
+    Customer name,
+    Invoice date range (from–to),
+    Invoice amount range (from–to),
+    Payment status,
+    Currency.
 
 Pagination:
 
