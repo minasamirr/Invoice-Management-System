@@ -2,18 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\InvoiceLog;
+use Illuminate\Support\Facades\Log;
 
 class InvoiceLogController extends Controller
 {
     public function index()
     {
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized.');
-        }
+        $this->authorize('manageInvoices');
 
-        $invoiceLogs = InvoiceLog::with(['invoice', 'user'])->orderBy('created_at', 'desc')->get();
-        return view('invoice_logs.index', compact('invoiceLogs'));
+        try {
+            $invoiceLogs = InvoiceLog::with(['invoice', 'user'])->orderBy('created_at', 'desc')->get();
+            return view('invoice_logs.index', compact('invoiceLogs'));
+        } catch (\Exception $e) {
+            Log::error('Invoice log retrieval error: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Failed to retrieve invoice logs. Please try again later.');
+        }
     }
 }
