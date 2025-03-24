@@ -48,7 +48,7 @@ class Invoice extends Model
             'due_date'    => 'required|date',
             'description' => 'nullable|string',
             'status'      => 'required|in:' . implode(',', self::statuses()),
-            'currency'    => 'required|string|size:3',
+            'currency'    => 'required|in:' . implode(',', self::currencies()),
         ];
     }
 
