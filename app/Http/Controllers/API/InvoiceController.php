@@ -16,7 +16,9 @@ class InvoiceController extends Controller
     public function index()
     {
         try {
-            return response()->json(Invoice::all());
+            $perPage = request()->query('per_page', 10);
+            $invoices = Invoice::paginate($perPage);
+            return response()->json($invoices);
         } catch (\Exception $e) {
             Log::error('Error fetching invoices: ' . $e->getMessage());
             return response()->json(['message' => 'Failed to fetch invoices.'], 500);
