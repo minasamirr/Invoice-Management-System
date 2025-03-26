@@ -20,12 +20,12 @@ class DatabaseSeeder extends Seeder
         // Create some sample customers
         $customer1 = Customer::create([
             'name'  => 'Acme Corporation',
-            'email' => 'contact@acmecorp.com',
+            'email' => 'contact@example.com',
         ]);
 
         $customer2 = Customer::create([
             'name'  => 'Global Industries',
-            'email' => 'info@globalindustries.com',
+            'email' => 'info@example.com',
         ]);
 
         // Create sample users
