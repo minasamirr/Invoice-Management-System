@@ -60,8 +60,15 @@ Email: Laravel Mail using gmail
 
 Additional: Eloquent ORM, Form Request Validation
 
-Setup Instructions
-    Clone the Repository:
+Setup Instructions:
+
+Download XAMPP.
+
+Open XAMPP:
+
+Start Apache & MySQL.
+
+Clone the Repository:
 
     git clone https://github.com/your-username/invoice-management-system.git
     cd invoice-management-system
@@ -95,7 +102,7 @@ Serve the Application:
 
     php artisan serve
 
-    Your application will typically be available at http://127.0.0.1:8000.
+Your application will typically be available at http://127.0.0.1:8000.
 
 Postman Collection
 A Postman collection is provided with the project, demonstrating how to use the API endpoints:
