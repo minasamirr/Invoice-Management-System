@@ -89,7 +89,7 @@
                         <td>
                             <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-info btn-sm">View</a>
                             <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                            @if(auth()->user()->role === 'admin')
+                            @if(auth()->user()->role === App\Models\User::STATUS_ADMIN)
                             <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')

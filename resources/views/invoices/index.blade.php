@@ -3,7 +3,7 @@
 @section('content')
     <div class="d-flex justify-content-between mb-3">
         <h2>Invoices</h2>
-        @if(auth()->user()->role === 'admin')
+        @if(auth()->user()->role === App\Models\User::STATUS_ADMIN)
         <a href="{{ route('invoices.create') }}" class="btn btn-primary">Create Invoice</a>
         @endif
     </div>
@@ -41,7 +41,7 @@
                     <td>
                         <a href="{{ route('invoices.show', $invoice->id) }}" class="btn btn-info btn-sm">View</a>
                         <a href="{{ route('invoices.edit', $invoice->id) }}" class="btn btn-warning btn-sm">Edit</a>
-                        @if(auth()->user()->role === 'admin')
+                        @if(auth()->user()->role === App\Models\User::STATUS_ADMIN)
                         <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')

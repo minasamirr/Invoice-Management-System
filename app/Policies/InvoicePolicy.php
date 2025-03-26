@@ -9,11 +9,11 @@ class InvoicePolicy
 {
     public function update(User $user, Invoice $invoice)
     {
-        return $user->role === 'employee' || $user->role === 'admin';
+        return in_array($user->role, User::statuses());
     }
 
     public function manageInvoices(User $user)
     {
-        return $user->role === 'admin';
+        return $user->role === User::STATUS_ADMIN;
     }
 }
