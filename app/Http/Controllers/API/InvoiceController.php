@@ -129,4 +129,63 @@ class InvoiceController extends Controller
             return response()->json(['message' => 'Failed to delete invoice'], 500);
         }
     }
+
+    public function search(Request $request)
+    {
+        try {
+            $query = Invoice::query();
+
+            if ($request->filled('invoice_number')) {
+                $query->where('invoice_number', 'LIKE', '%' . $request->invoice_number . '%');
+            }
+
+            if ($request->filled('customer_name')) {
+                $query->whereHas('customer', function ($q) use ($request) {
+                    $q->where('name', 'LIKE', '%' . $request->customer_name . '%');
+                });
+            }
+
+            if ($request->filled('invoice_date_from')) {
+                $query->whereDate('due_date', '>=', $request->invoice_date_from);
+            }
+
+            if ($request->filled('invoice_date_to')) {
+                $query->whereDate('due_date', '<=', $request->invoice_date_to);
+            }
+
+            if ($request->filled('invoice_amount_from')) {
+                $query->where('amount', '>=', $request->invoice_amount_from);
+            }
+
+            if ($request->filled('invoice_amount_to')) {
+                $query->where('amount', '<=', $request->invoice_amount_to);
+            }
+
+            if ($request->filled('payment_status')) {
+                $query->where('status', $request->payment_status);
+            }
+
+            if ($request->filled('currency')) {
+                $query->where('currency', $request->currency);
+            }
+
+            $query->orderBy('due_date', 'desc');
+            $perPage = $request->input('per_page', 10);
+            $invoices = $query->paginate($perPage);
+
+            $statuses = Invoice::statuses();
+            $currencies = Invoice::currencies();
+
+            return response()->json([
+                'data'       => $invoices,
+                'statuses'   => $statuses,
+                'currencies' => $currencies,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Search error: ' . $e->getMessage());
+            return response()->json([
+                'error' => 'An error occurred while performing the search.'
+            ], 500);
+        }
+    }
 }
