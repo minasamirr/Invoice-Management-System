@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Models\InvoiceLog;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
 
 class InvoiceLogController extends Controller
 {
@@ -17,10 +19,10 @@ class InvoiceLogController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
-            return view('invoice_logs.index', compact('invoiceLogs'));
+            return response()->json(['invoiceLogs' => $invoiceLogs,]);
         } catch (\Exception $e) {
             Log::error('Invoice log retrieval error: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to retrieve invoice logs. Please try again later.');
+            return response()->json(['error' => 'Failed to retrieve invoice logs. Please try again later.'], 500);
         }
     }
 }

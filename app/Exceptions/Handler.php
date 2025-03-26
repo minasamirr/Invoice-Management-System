@@ -38,4 +38,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        // Check if it's a MethodNotAllowedHttpException
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+            if ($request->is('logout')) {
+                return redirect()->route('invoices.index')
+                    ->with('message', 'Please use the logout button to end your session.');
+            }
+        }
+        return parent::render($request, $exception);
+    }
 }

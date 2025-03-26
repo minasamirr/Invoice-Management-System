@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\InvoiceController;
+use App\Http\Controllers\API\InvoiceLogController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -32,8 +33,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::middleware('can:manageInvoices')->group(function () {
         Route::post('/invoices',[InvoiceController::class, 'store']);
         Route::delete('/invoices/{invoice}', [InvoiceController::class, 'destroy']);
+        Route::get('/invoice_logs', [InvoiceLogController::class, 'index']);
     });
 
+    Route::get('/invoices/search', [InvoiceController::class, 'search']);
     Route::get('/invoices', [InvoiceController::class, 'index']);
     Route::get('invoices/{invoice}', [InvoiceController::class, 'show']);
 });
