@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,13 +43,22 @@ class Handler extends ExceptionHandler
 
     public function render($request, Throwable $exception)
     {
-        // Check if it's a MethodNotAllowedHttpException
-        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException) {
+        // Handle MethodNotAllowed for logout GET requests
+        if ($exception instanceof MethodNotAllowedHttpException) {
             if ($request->is('logout')) {
                 return redirect()->route('invoices.index')
                     ->with('message', 'Please use the logout button to end your session.');
             }
         }
+
+        // Handle AccessDeniedHttpException for unauthorized actions in API requests
+        if ($request->expectsJson() && $exception instanceof AccessDeniedHttpException) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'You do not have permission to perform this action.'
+            ], 403);
+        }
+
         return parent::render($request, $exception);
     }
 }
