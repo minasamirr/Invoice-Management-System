@@ -14,16 +14,19 @@ class InvoiceUpdated extends Mailable
 
     public $invoice;
     public $changes;
+    public $subject;
+    public $title;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Invoice $invoice, array $changes, string $subject)
+    public function __construct(Invoice $invoice, array $changes, $subject = null, $title = null)
     {
         $this->invoice = $invoice;
         $this->changes = $changes;
         $this->subject($subject);
+        $this->title = $title ?? ('Invoice Updated');
     }
 
     /**
@@ -33,6 +36,6 @@ class InvoiceUpdated extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.invoice_updated');
+        return $this->view('emails.invoice_updated')->with(['title' => $this->title]);
     }
 }
