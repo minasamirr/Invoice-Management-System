@@ -12,7 +12,11 @@ class InvoiceLogController extends Controller
         $this->authorize('manageInvoices');
 
         try {
-            $invoiceLogs = InvoiceLog::with(['invoice', 'user'])->orderBy('created_at', 'desc')->get();
+            $perPage = request()->query('per_page', 10);
+            $invoiceLogs = InvoiceLog::with(['invoice', 'user'])
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
+
             return view('invoice_logs.index', compact('invoiceLogs'));
         } catch (\Exception $e) {
             Log::error('Invoice log retrieval error: ' . $e->getMessage());
