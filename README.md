@@ -56,7 +56,7 @@ Frontend: Blade Templating Engine, Bootstrap 5
 
 Database: MySQL
 
-API Authentication: Laravel Sanctum (session based for web and token based for api)
+API Authentication: Laravel Sanctum (session based for web and token based for api) (use gate for route and policy for model)
 
 Email: Laravel Mail using gmail
 
