@@ -51,14 +51,6 @@ class Handler extends ExceptionHandler
             }
         }
 
-        // Handle AccessDeniedHttpException for unauthorized actions in API requests
-        if ($request->expectsJson() && $exception instanceof AccessDeniedHttpException) {
-            return response()->json([
-                'status'  => 'error',
-                'message' => 'You do not have permission to perform this action.'
-            ], 403);
-        }
-
         return parent::render($request, $exception);
     }
 }

@@ -14,7 +14,7 @@
         <a class="navbar-brand" href="{{ route('invoices.index') }}">Invoice Management</a>
         @auth
         <a class="nav-link me-3" href="{{ route('invoices.search') }}">Search</a>
-        @if(auth()->user()->role === 'admin')
+        @if(auth()->user()->role === App\Models\User::STATUS_ADMIN)
             <a class="nav-link" href="{{ route('invoice_logs.index') }}">Logs</a>
         @endif
         @endauth

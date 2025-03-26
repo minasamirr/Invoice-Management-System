@@ -33,14 +33,14 @@ class DatabaseSeeder extends Seeder
             'name'     => 'Admin User',
             'email'    => 'admin@example.com',
             'password' => Hash::make('password'),
-            'role'     => 'admin',
+            'role'     => User::STATUS_ADMIN,
         ]);
 
         $employee = User::create([
             'name'     => 'Employee User',
             'email'    => 'employee@example.com',
             'password' => Hash::make('password'),
-            'role'     => 'employee',
+            'role'     => User::STATUS_EMPOYEE,
         ]);
 
         // Create some sample invoices
@@ -214,7 +214,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice1->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -222,7 +222,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice2->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -230,7 +230,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice3->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -238,7 +238,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice4->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -246,7 +246,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice5->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -254,7 +254,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice6->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -262,7 +262,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice7->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -270,7 +270,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice8->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -278,7 +278,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice9->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -286,7 +286,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice10->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -294,7 +294,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice11->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -302,7 +302,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice12->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -310,7 +310,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice13->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -318,7 +318,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice13->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -326,7 +326,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice14->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
 
@@ -334,7 +334,7 @@ class DatabaseSeeder extends Seeder
             'invoice_id' => $invoice15->id,
             'user_id'    => $admin->id,
             'action'     => 'create',
-            'role'       => 'admin',
+            'role'       => User::STATUS_ADMIN,
             'details'    => 'Invoice created via seeder.',
         ]);
     }
