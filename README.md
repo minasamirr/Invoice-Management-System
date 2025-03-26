@@ -49,10 +49,15 @@ A separate API (secured via Laravel Sanctum) allows authenticated users to:
 Technologies
 
 Backend Framework: Laravel 8
+
 Frontend: Blade Templating Engine, Bootstrap 5
+
 Database: MySQL
+
 API Authentication: Laravel Sanctum (session based for web and token based for api)
+
 Email: Laravel Mail using gmail
+
 Additional: Eloquent ORM, Form Request Validation
 
 Setup Instructions
