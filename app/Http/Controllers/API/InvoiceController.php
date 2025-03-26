@@ -18,10 +18,17 @@ class InvoiceController extends Controller
         try {
             $perPage = request()->query('per_page', 10);
             $invoices = Invoice::paginate($perPage);
-            return response()->json($invoices);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Invoices retrieved successfully.',
+                'data'    => $invoices,
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Error fetching invoices: ' . $e->getMessage());
-            return response()->json(['message' => 'Failed to fetch invoices.'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Failed to fetch invoices.',
+            ], 500);
         }
     }
 
@@ -29,10 +36,17 @@ class InvoiceController extends Controller
     public function show(Invoice $invoice)
     {
         try {
-            return response()->json($invoice);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Invoice retrieved successfully.',
+                'data'    => $invoice,
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Error showing invoice: ' . $e->getMessage());
-            return response()->json(['message' => 'Failed to fetch invoice'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Failed to fetch invoice.',
+            ], 500);
         }
     }
 
@@ -53,10 +67,17 @@ class InvoiceController extends Controller
                 'details'    => 'Invoice created successfully.',
             ]);
 
-            return response()->json(['message' => 'Invoice created successfully.', 'invoice' => $invoice], 201);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Invoice created successfully.',
+                'data'    => $invoice,
+            ], 201);
         } catch (\Exception $e) {
             Log::error('Error creating invoice: ' . $e->getMessage());
-            return response()->json(['message' => 'Failed to create invoice'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Failed to create invoice.',
+            ], 500);
         }
     }
 
@@ -102,10 +123,17 @@ class InvoiceController extends Controller
                 }
             }
 
-            return response()->json(['message' => 'Invoice updated successfully', 'invoice' => $invoice]);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Invoice updated successfully.',
+                'data'    => $invoice,
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Error updating invoice: ' . $e->getMessage());
-            return response()->json(['message' => 'Failed to update invoice'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Failed to update invoice.',
+            ], 500);
         }
 }
 
@@ -123,10 +151,16 @@ class InvoiceController extends Controller
                 'details'    => 'Invoice soft deleted successfully.',
             ]);
 
-            return response()->json(['message' => 'Invoice deleted successfully']);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Invoice deleted successfully.',
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Error deleting invoice: ' . $e->getMessage());
-            return response()->json(['message' => 'Failed to delete invoice'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Failed to delete invoice.',
+            ], 500);
         }
     }
 
@@ -177,14 +211,19 @@ class InvoiceController extends Controller
             $currencies = Invoice::currencies();
 
             return response()->json([
-                'data'       => $invoices,
-                'statuses'   => $statuses,
-                'currencies' => $currencies,
-            ]);
+                'status'     => 'success',
+                'message'    => 'Invoices retrieved successfully.',
+                'data'       => [
+                    'invoices'   => $invoices,
+                    'statuses'   => $statuses,
+                    'currencies' => $currencies,
+                ]
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Search error: ' . $e->getMessage());
             return response()->json([
-                'error' => 'An error occurred while performing the search.'
+                'status'  => 'error',
+                'message' => 'An error occurred while performing the search.'
             ], 500);
         }
     }

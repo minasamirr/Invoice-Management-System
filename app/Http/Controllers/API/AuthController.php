@@ -28,12 +28,23 @@ class AuthController extends Controller
                 'role'     => 'employee',
             ]);
 
-            return response()->json(['message' => 'User created successfully.', 'user' => $user], 201);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'User created successfully.',
+                'user'    => $user
+            ], 201);
         } catch (ValidationException $e) {
-            return response()->json(['error' => $e->errors()], 422);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Validation error.',
+                'errors'  => $e->errors()
+            ], 422);
         } catch (\Exception $e) {
             Log::error('User Registration Error: ' . $e->getMessage());
-            return response()->json(['error' => 'Something went wrong, please try again later.'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Something went wrong, please try again later.'
+            ], 500);
         }
     }
 
@@ -53,23 +64,41 @@ class AuthController extends Controller
 
             $token = $user->createToken('API Token')->plainTextToken;
 
-            return response()->json(['user' => $user, 'token' => $token]);
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Login successful.',
+                'user'   => $user,
+                'token'  => $token
+            ], 200);
         } catch (ValidationException $e) {
-            return response()->json(['error' => $e->errors()], 422);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Validation error.',
+                'errors'  => $e->errors()
+            ], 422);
         } catch (\Exception $e) {
             Log::error('Login Error: ' . $e->getMessage());
-            return response()->json(['error' => 'Something went wrong, please try again later.'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Something went wrong, please try again later.'
+            ], 500);
         }
     }
 
     public function logout(Request $request)
     {
         try {
-        $request->user()->tokens()->delete();
-        return response()->json(['message' => 'Logged out successfully']);
+            $request->user()->tokens()->delete();
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Logged out successfully'
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Logout Error: ' . $e->getMessage());
-            return response()->json(['error' => 'Something went wrong, please try again later.'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Something went wrong, please try again later.'
+            ], 500);
         }
     }
 }

@@ -19,10 +19,17 @@ class InvoiceLogController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate($perPage);
 
-            return response()->json(['invoiceLogs' => $invoiceLogs,]);
+            return response()->json([
+                'status'  => 'success',
+                'message' => 'Invoice logs retrieved successfully.',
+                'data'    => $invoiceLogs
+            ], 200);
         } catch (\Exception $e) {
             Log::error('Invoice log retrieval error: ' . $e->getMessage());
-            return response()->json(['error' => 'Failed to retrieve invoice logs. Please try again later.'], 500);
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Failed to retrieve invoice logs. Please try again later.'
+            ], 500);
         }
     }
 }
