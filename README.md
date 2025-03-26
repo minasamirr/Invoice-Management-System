@@ -131,7 +131,11 @@ A Postman collection is provided with the project, demonstrating how to use the 
 
     Search Functionality:
 
-        GET /invoices/search for advanced invoice filtering
+        GET /api/invoices/search
+
+    Invoice Logs Endpoint:
+
+        GET /api/invoice_logs (Admin only)
 
 To use the collection:
 
